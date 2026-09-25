@@ -23,12 +23,10 @@ const Nav = () => {
 
 
         <div className="flex items-center gap-4 text-xs">
-          <button className="text-gray-700 hover:text-pink-600">
-            Sign In
+          <button className="text-gray-700 hover:text-pink-600">Sign In
           </button>
 
-          <button className="bg-pink-600 text-white px-5 py-2 rounded-full hover:bg-pink-700">
-            Sign Up
+          <button className="bg-pink-600 text-white px-5 py-2 rounded-full hover:bg-pink-700">Sign Up
           </button>
         </div>
 

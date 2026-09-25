@@ -15,12 +15,10 @@ const AddedStack = ({techlist,stack,handleAddToStack,setStack}: AddedStackProps)
   return (
     <section className="max-w-6xl mx-auto px-4 py-10">
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-gray-900">
-          Explore Technologies
+        <h2 className="text-2xl font-bold text-gray-900">Explore Technologies
         </h2>
 
-        <p className="text-sm text-gray-500 mt-1">
-          Pick one technology per category to build your ideal stack.
+        <p className="text-sm text-gray-500 mt-1">Pick one technology per category to build your ideal stack.
         </p>
       </div>
 
@@ -31,22 +29,15 @@ const AddedStack = ({techlist,stack,handleAddToStack,setStack}: AddedStackProps)
           return (
             <div
               key={tech.id}
-              className="bg-white border border-gray-200 rounded-xl p-5 hover:shadow-lg transition-shadow"
-            >
+              className="bg-white border border-gray-200 rounded-xl p-5 hover:shadow-lg transition-shadow">
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-3">
                   <div className="w-11 h-11 rounded-lg bg-gray-100 flex items-center justify-center">
-                    <img
-                      src={tech.icon}
-                      alt={tech.name}
-                      className="w-7 h-7 object-contain"
-                    />
+                    <img src={tech.icon} alt={tech.name} className="w-7 h-7 object-contain"/>
                   </div>
 
                   <div>
-                    <h3 className="font-semibold text-gray-900">
-                      {tech.name}
-                    </h3>
+                    <h3 className="font-semibold text-gray-900">{tech.name}</h3>
                   </div>
                 </div>
 
@@ -74,15 +65,11 @@ const AddedStack = ({techlist,stack,handleAddToStack,setStack}: AddedStackProps)
                 </span>
               </div>
 
-              <button
-                onClick={() => handleAddToStack(tech)}
-                disabled={isAdded}
-                className={`w-full mt-4 text-xs font-medium py-2 rounded-lg transition ${
-                  isAdded
+              <button onClick={() => handleAddToStack(tech)} disabled={isAdded}
+                className={`w-full mt-4 text-xs font-medium py-2 rounded-lg transition ${ isAdded
                     ? "bg-gray-200 text-gray-500 cursor-not-allowed"
                     : "bg-gray-900 text-white hover:bg-gray-800"
-                }`}
-              >{isAdded ? "✓ Added to Stack" : "Add to Stack"}</button>
+                }`}>{isAdded ? "✓ Added to Stack" : "Add to Stack"}</button>
             </div>
           );
         })}
