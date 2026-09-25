@@ -1,10 +1,15 @@
+import type { Dispatch, SetStateAction } from "react";
 import type { Itech } from "../../types/tech";
+import Sidebar from "../sidebar";
 
 interface AddedStackProps {
   techlist: Itech[];
+  stack: Itech[];
+  handleAddToStack: (tech: Itech) => void;
+  setStack: Dispatch<SetStateAction<Itech[]>>;
 }
 
-const AddedStack = ({ techlist }: AddedStackProps) => {
+const AddedStack = ({techlist,stack,handleAddToStack,setStack}: AddedStackProps) => {
   console.log(techlist, "techlist from added stack");
 
   return (
@@ -21,12 +26,13 @@ const AddedStack = ({ techlist }: AddedStackProps) => {
 
       <div className="grid grid-cols-3 gap-5">
         {techlist.map((tech) => {
+          const isAdded = stack.some((item) => item.id === tech.id);
+
           return (
             <div
               key={tech.id}
               className="bg-white border border-gray-200 rounded-xl p-5 hover:shadow-lg transition-shadow"
             >
-              {/* Top */}
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-3">
                   <div className="w-11 h-11 rounded-lg bg-gray-100 flex items-center justify-center">
@@ -49,12 +55,10 @@ const AddedStack = ({ techlist }: AddedStackProps) => {
                 </span>
               </div>
 
-              {/* Description */}
               <p className="text-xs text-gray-600 leading-5 mt-4">
                 {tech.description}
               </p>
 
-              {/* Bottom Info */}
               <div className="flex items-center justify-between mt-5">
                 <span className="text-[9px] bg-gray-100 text-gray-600 px-2 py-1 rounded">
                   {tech.category}
@@ -70,14 +74,21 @@ const AddedStack = ({ techlist }: AddedStackProps) => {
                 </span>
               </div>
 
-              {/* Button */}
-              <button className="w-full mt-4 bg-gray-900 text-white text-xs font-medium py-2 rounded-lg hover:bg-gray-800 transition">
-                Add to Stack
-              </button>
+              <button
+                onClick={() => handleAddToStack(tech)}
+                disabled={isAdded}
+                className={`w-full mt-4 text-xs font-medium py-2 rounded-lg transition ${
+                  isAdded
+                    ? "bg-gray-200 text-gray-500 cursor-not-allowed"
+                    : "bg-gray-900 text-white hover:bg-gray-800"
+                }`}
+              >{isAdded ? "✓ Added to Stack" : "Add to Stack"}</button>
             </div>
           );
         })}
       </div>
+
+      <Sidebar stack={stack} setStack={setStack} />
     </section>
   );
 };

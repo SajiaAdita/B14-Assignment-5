@@ -1,4 +1,7 @@
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import Nav from "./components/Nav";
 import Banner from "./components/banner";
 import Techlist from "./components/techlist/Techlist";
@@ -15,15 +18,37 @@ const techlistFetch = async (): Promise<Itech[]> => {
 function App() {
   const techlistPromise = techlistFetch();
 
+  const [stack, setStack] = useState<Itech[]>([]);
+
+  const handleAddToStack = (tech: Itech) => {
+    const isAlreadyAdded = stack.some((item) => item.id === tech.id);
+
+    if (isAlreadyAdded) {
+      toast.warning("Already added!");
+      return;
+    }
+
+    setStack((previousStack) => [...previousStack, tech]);
+
+    toast.success("Technology added!");
+  };
+
   return (
     <>
       <Nav />
+
       <Banner />
 
       <Suspense fallback={<h2>Loading......</h2>}>
-        <Techlist techlistPromise={techlistPromise} />
+        <Techlist
+          techlistPromise={techlistPromise}
+          stack={stack}
+          handleAddToStack={handleAddToStack}
+          setStack={setStack}
+        />
       </Suspense>
       <Footer />
+      <ToastContainer />
     </>
   );
 }
